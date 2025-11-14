@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>허위-과대 광고 판별 퀴즈</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>허위-과대 광고 판별 퀴즈</h1>
+    <div id="start-page">
+      <h2>허위·과대 광고 가려내기 기준</h2>
+      <ul id="criteria-list">
+        <li>'특효', '100% 효과보장' 등 지나치게 장담하는 문구가 포함되었나요?</li>
+        <li>'항암효과,'탈모치료','체중감량' 등 증명 할 수 없는 내용이 있나요?</li>
+        <li>'공인된 기관'이 아닌 사설기관 등에서 인증 받은 내용이 있나요?</li>
+        <li>일반 식품이 아닌 건강 기능 식품 표시가 있나요?</li>
+        <li>SNS 광고내용이 공식 쇼핑몰 광고내용과 같나요?</li>
+      </ul>
+      <button id="start-btn">퀴즈 시작하기</button>
+    </div>
+
+    <div id="quiz-container" class="hidden">
+      <div id="score">점수: <span id="score-value">0</span></div>
+      <div id="quiz-area">
+        <div class="main-content">
+          <div id="question-title"></div>
+          <div class="media-wrap">
+            <img id="quiz-image" src="" alt="quiz media" class="hidden" />
+            <video id="quiz-video" class="hidden" autoplay muted loop playsinline></video>
+            <div id="highlights-container"></div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <h3>가려내기 기준</h3>
+          <ul id="criteria-sidebar-list">
+          </ul>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button id="true-btn" class="choice-btn">진짜</button>
+        <button id="fake-btn" class="choice-btn">가짜</button>
+      </div>
+      <div id="feedback" class="hidden">
+        <p id="feedback-msg"></p>
+        <p><strong>기법:</strong> <span id="feedback-tech"></span></p>
+        <ul id="feedback-hints"></ul>
+        <button id="next-btn">다음 문제</button>
+      </div>
+    </div>
+
+    <div id="final-area" class="hidden">
+      <h2>퀴즈 종료</h2>
+      <p id="final-score"></p>
+      <p id="final-remark"></p>
+      <div class="final-buttons">
+        <button id="restart-btn">다시하기</button>
+        <button id="home-btn">메인으로 돌아가기</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

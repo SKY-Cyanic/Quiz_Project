@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --accent: #4b7bec;
+  --text: #333;
+  --shadow: 0 6px 20px rgba(20, 20, 40, 0.06);
+}
+
+* { 
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 960px;
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.quiz-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(20, 20, 40, 0.1);
+}
+
+.card h2 {
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.card p {
+  line-height: 1.6;
+}
