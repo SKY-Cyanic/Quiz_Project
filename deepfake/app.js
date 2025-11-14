@@ -1,7 +1,17 @@
 let questions = [];
 let idx = 0;
 let score = 0;
-let timeUpdateHandler = null; // 비디오 시간 업데이트 핸들러 참조
+let timeUpdateHandler = null;
+
+// 딥페이크 판별 기준 추가
+const CRITERIA = [
+    "눈 깜빡임이 부자연스럽거나 없는가?",
+    "얼굴 표정이나 근육 움직임이 어색한가?",
+    "얼굴과 배경의 경계가 흐릿하거나 깨져 보이는가?",
+    "얼굴과 주변의 조명이나 그림자가 일치하지 않는가?",
+    "피부 질감이 지나치게 매끄럽거나 뭉개져 보이는가?",
+    "목소리와 입 모양이 맞지 않는가?"
+];
 
 const QUESTIONS_DATA = [
     {
@@ -121,6 +131,7 @@ const QUESTIONS_DATA = [
     }
 ];
 
+// DOM Elements
 const scoreValue = document.getElementById("score-value");
 const qTitle = document.getElementById("question-title");
 const qImage = document.getElementById("quiz-image");
@@ -139,8 +150,28 @@ const finalRemark = document.getElementById("final-remark");
 const restartBtn = document.getElementById("restart-btn");
 const homeBtn = document.getElementById("home-btn");
 
+// 추가된 DOM Elements
+const startPage = document.getElementById("start-page");
+const startBtn = document.getElementById("start-btn");
+const quizContainer = document.getElementById("quiz-container");
+const criteriaList = document.getElementById("criteria-list");
+const criteriaSidebarList = document.getElementById("criteria-sidebar-list");
+
+
+// 판별 기준 목록을 채우는 함수 추가
+function populateCriteriaLists() {
+    criteriaList.innerHTML = '';
+    criteriaSidebarList.innerHTML = '';
+    CRITERIA.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        criteriaList.appendChild(li);
+        criteriaSidebarList.appendChild(li.cloneNode(true));
+    });
+}
+
 function loadQuestions() {
-  questions = QUESTIONS_DATA;
+  questions = [...QUESTIONS_DATA].sort(() => Math.random() - 0.5); // 문제 섞기
   showQuestion();
 }
 
@@ -228,7 +259,7 @@ function submitAnswer(userAns) {
 }
 
 function finishQuiz() {
-  document.getElementById("quiz-area").classList.add("hidden");
+  quizContainer.classList.add("hidden"); // quiz-area 대신 quiz-container를 숨김
   finalArea.classList.remove("hidden");
   qVideo.pause();
   finalScore.textContent = `최종 점수: ${score}점`;
@@ -240,6 +271,16 @@ function finishQuiz() {
     finalRemark.textContent = "주의 깊은 관찰이 필요합니다. 미디어를 볼 때 비판적인 시각을 유지하는 연습을 해보세요. 🤔";
   }
 }
+
+// Event Listeners
+startBtn.addEventListener("click", () => {
+    startPage.classList.add("hidden");
+    quizContainer.classList.remove("hidden");
+    idx = 0;
+    score = 0;
+    scoreValue.textContent = score;
+    loadQuestions();
+});
 
 trueBtn.addEventListener("click", () => submitAnswer("진짜"));
 fakeBtn.addEventListener("click", () => submitAnswer("가짜"));
@@ -254,12 +295,12 @@ restartBtn.addEventListener("click", () => {
   score = 0;
   scoreValue.textContent = score;
   finalArea.classList.add("hidden");
-  document.getElementById("quiz-area").classList.remove("hidden");
-  showQuestion();
+  startPage.classList.remove("hidden"); // 시작 화면을 다시 보여줌
 });
 
 homeBtn.addEventListener("click", () => {
     window.location.href = "/";
 });
 
-loadQuestions();
+// Initialize
+populateCriteriaLists();
